@@ -29,7 +29,7 @@ export default function usePizza({ pizzas, values }) {
 
   async function submitOrder(e) {
     e.preventDefault();
-    console.log(e);
+    // console.log(e);
     setLoading(true);
     setError(null);
     // setMessage(null);
@@ -42,7 +42,7 @@ export default function usePizza({ pizzas, values }) {
       email: values.email,
       mapleSyrup: values.mapleSyrup,
     };
-    console.log(body);
+    // console.log(body);
     const res = await fetch(
       `${process.env.GATSBY_SERVERLESS_BASE}/placeOrder`,
       {
