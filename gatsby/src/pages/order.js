@@ -1,17 +1,18 @@
-import { graphql } from 'gatsby';
 import React from 'react';
+import { graphql } from 'gatsby';
 import Img from 'gatsby-image';
 import SEO from '../components/SEO';
 import useForm from '../utils/useForm';
-import calculatePizzaPrice from '../utils/calculatePizzaPrice';
+
 import formatMoney from '../utils/formatMoney';
 import OrderStyles from '../styles/OrderStyles';
 import MenuItemStyles from '../styles/MenuItemStyles';
 import usePizza from '../utils/usePizza';
 import PizzaOrder from '../components/PizzaOrder';
 import calculateOrderTotal from '../utils/calculateOrderTotal';
+import calculatePizzaPrice from '../utils/calculatePizzaPrice';
 
-const OrderPage = ({ data }) => {
+export default function OrderPage({ data }) {
   const pizzas = data.pizzas.nodes;
   const { values, updateValue } = useForm({
     name: '',
@@ -40,29 +41,36 @@ const OrderPage = ({ data }) => {
       <OrderStyles onSubmit={submitOrder}>
         <fieldset disabled={loading}>
           <legend>Your Info</legend>
-          <label htmlFor="name">Name</label>
-          <input
-            type="text"
-            name="name"
-            value={values.name}
-            onChange={updateValue}
-          />
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            name="email"
-            value={values.email}
-            onChange={updateValue}
-          />
+          <label htmlFor="name">
+            Name
+            <input
+              type="text"
+              name="name"
+              id="name"
+              value={values.name}
+              onChange={updateValue}
+            />
+          </label>
+          <label htmlFor="email">
+            Email
+            <input
+              type="email"
+              name="email"
+              id="email"
+              value={values.email}
+              onChange={updateValue}
+            />
+          </label>
           <input
             type="mapleSyrup"
             name="mapleSyrup"
+            id="mapleSyrup"
             value={values.mapleSyrup}
             onChange={updateValue}
             className="mapleSyrup"
           />
         </fieldset>
-        <fieldset className="menu" disabled={loading}>
+        <fieldset disabled={loading} className="menu">
           <legend>Menu</legend>
           {pizzas.map((pizza) => (
             <MenuItemStyles key={pizza.id}>
@@ -80,7 +88,12 @@ const OrderPage = ({ data }) => {
                   <button
                     type="button"
                     key={size}
-                    onClick={() => addToOrder({ id: pizza.id, size })}
+                    onClick={() =>
+                      addToOrder({
+                        id: pizza.id,
+                        size,
+                      })
+                    }
                   >
                     {size} {formatMoney(calculatePizzaPrice(pizza.price, size))}
                   </button>
@@ -89,7 +102,7 @@ const OrderPage = ({ data }) => {
             </MenuItemStyles>
           ))}
         </fieldset>
-        <fieldset className="order" disabled={loading}>
+        <fieldset disabled={loading} className="order">
           <legend>Order</legend>
           <PizzaOrder
             order={order}
@@ -109,9 +122,7 @@ const OrderPage = ({ data }) => {
       </OrderStyles>
     </>
   );
-};
-
-export default OrderPage;
+}
 
 export const query = graphql`
   query {
