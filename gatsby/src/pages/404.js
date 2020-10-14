@@ -1,5 +1,9 @@
 import React from 'react';
 
-export default function FourOhFourPage() {
-  return <p>Hey - That page doesn't exist!!!</p>;
-}
+const FailedPage = () => (
+  <div>
+    <p>Hey, That page doesn't exist!</p>
+  </div>
+);
+
+export default FailedPage;

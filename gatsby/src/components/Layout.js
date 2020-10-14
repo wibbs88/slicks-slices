@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import 'normalize.css';
+
 import Nav from './Nav';
 import Footer from './Footer';
 import GlobalStyles from '../styles/GlobalStyles';
@@ -28,18 +29,18 @@ const ContentStyles = styled.div`
   padding: 2rem;
 `;
 
-export default function Layout({ children }) {
-  return (
-    <>
-      <GlobalStyles />
-      <Typography />
-      <SiteBorderStyles>
-        <ContentStyles>
-          <Nav />
-          {children}
-          <Footer />
-        </ContentStyles>
-      </SiteBorderStyles>
-    </>
-  );
-}
+const Layout = ({ children }) => (
+  <>
+    <GlobalStyles />
+    <Typography />
+    <SiteBorderStyles>
+      <ContentStyles>
+        <Nav />
+        {children}
+        <Footer />
+      </ContentStyles>
+    </SiteBorderStyles>
+  </>
+);
+
+export default Layout;
